@@ -1,5 +1,7 @@
 1. Create a virtual env by running:
 `python3 -m venv venv`
+activate your virtual env
+`source venv/bin/activate`
 2. Install dependencies:
 `pip install -r requirements.txt`
 3. Test your app locally
@@ -10,3 +12,5 @@
 8. List running containers `docker ps`
 9. List running and stopped containers `docker ps -a`
 10. List images `docker image ls`
+11. deactivate your virtual env
+`deactivate`
