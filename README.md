@@ -33,6 +33,13 @@ show history of layers in an image
 docker history <image_name>
 ```
 
+check error of creating an image. 
+```bash
+docker logs <image_name>
+```
+
+
+
 
 ## Milad project
 1. Create a virtual env by running:
