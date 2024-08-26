@@ -1,3 +1,40 @@
+# Docker 
+
+## Usefull commands
+build an image and identify it.
+```bash 
+docker build -t hello-docker . 
+```
+
+show images list. 
+```bash 
+docker images
+docker image ls
+```
+
+run your image.
+```bash
+docker run hello-docker 
+docker run hello-docker npm start
+docker run -it ubuntu # for running in interactive mode.
+docker run -it react-app bash
+docker run -it react-app sh
+docker start -i <31b> # 31b is the container ID
+```
+
+show all the containers.
+```bash
+docker ps
+docker ps -a # for showing all process including stoped one. 
+```
+
+show history of layers in an image
+```bash
+docker history <image_name>
+```
+
+
+## Milad project
 1. Create a virtual env by running:
 `python3 -m venv venv`
 activate your virtual env
