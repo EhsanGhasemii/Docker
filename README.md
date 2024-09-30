@@ -58,3 +58,60 @@ activate your virtual env
 10. List images `docker image ls`
 11. deactivate your virtual env
 `deactivate`
+
+
+
+
+## HH
+Sure, I can help with that! Here are the steps to remove Docker containers and images:
+
+### Removing Docker Containers
+
+1. **List all containers** (including stopped ones):
+   ```sh
+   docker ps -a
+   ```
+
+2. **Stop a running container**:
+   ```sh
+   docker stop <container_id_or_name>
+   ```
+
+3. **Remove a specific container**:
+   ```sh
+   docker rm <container_id_or_name>
+   ```
+
+4. **Remove all stopped containers**:
+   ```sh
+   docker container prune
+   ```
+
+### Removing Docker Images
+
+1. **List all images**:
+   ```sh
+   docker images -a
+   ```
+
+2. **Remove a specific image**:
+   ```sh
+   docker rmi <image_id>
+   ```
+
+3. **Remove all unused images**:
+   ```sh
+   docker image prune
+   ```
+
+4. **Remove all images** (use with caution):
+   ```sh
+   docker rmi $(docker images -q)
+   ```
+
+### Clean Up All Unused Resources
+
+To remove all unused containers, networks, images (both dangling and unreferenced), and optionally, volumes:
+```sh
+docker system prune -a
+```
