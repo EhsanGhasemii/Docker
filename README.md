@@ -38,6 +38,32 @@ check error of creating an image.
 docker logs <image_name>
 ```
 
+How to build the image?
+```bash
+docker build -t ehsan-image .
+```
+How to run the docker container?
+```bash
+docker run -d --name ehsan-container ehsan-image
+```
+How to access the container with a bash shell?
+```bash
+docker exec -it ehsan-container bash
+```
+How to use gpu in your docker container? and map dataset on it?
+```bash
+docker run --gpus all -d --name ehsan-container -v datasets:/app/datasets ehsan-image
+```
+
+How to save an image? 
+```bash
+docker save sad:0.1.1-rpc | gzip > ~/dockers/sad_0.1.1-rpc.tar.gz
+docker build . -f Dockerfile -t sad:0.1.0-rpc --no-cache
+```
+How to load an image? 
+```bash
+gzip -dc ~/docker/sad_0.1.1-rpc.tar.gz | docker load
+```
 
 
 
@@ -115,3 +141,32 @@ To remove all unused containers, networks, images (both dangling and unreference
 ```sh
 docker system prune -a
 ```
+
+
+You can copy files from your local machine to a Docker container using the `docker cp` command. Here’s how you can do it:
+
+1. **Identify the container ID or name**: First, you need to know the ID or name of the Docker container to which you want to copy the files. You can list all running containers with:
+
+    ```sh
+    docker ps
+    ```
+
+2. **Copy the files**: Use the `docker cp` command to copy files from your host to the container. The syntax is:
+
+    ```sh
+    docker cp /path/to/local/file_or_directory container_id:/path/in/container
+    ```
+
+    For example, if you want to copy a file named `example.txt` from your local machine to the `/tmp` directory in a container named `mycontainer`, you would use:
+
+    ```sh
+    docker cp example.txt mycontainer:/tmp/
+    ```
+
+3. **Verify the copy**: You can verify that the file has been copied correctly by executing a command inside the container to check the destination directory:
+
+    ```sh
+    docker exec mycontainer ls /tmp/
+    ```
+
+This method is straightforward and doesn't require any additional setup⁵⁶⁷.
