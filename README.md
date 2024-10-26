@@ -170,3 +170,51 @@ You can copy files from your local machine to a Docker container using the `dock
     ```
 
 This method is straightforward and doesn't require any additional setup⁵⁶⁷.
+
+
+
+
+## docker-compose.yaml
+```docker-compose.yaml
+version: '3.8'
+
+services:
+  app:
+    image: cnstark/pytorch:2.0.1-py3.10.11-cuda11.8.0-ubuntu22.04
+    container_name: my_app_container
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: ["tail", "-f", "/dev/null"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+    tty: true
+    stdin_open: true
+```
+
+Explanation
+version: '3.8': Specifies the version of the docker-compose file format.
+
+services: Defines the services that will run.
+
+app: The name of your service.
+
+image: Specifies the base image to use.
+
+container_name: The name of the container.
+
+working_dir: The working directory inside the container.
+
+volumes: Mounts the current directory to /app inside the container.
+
+command: Keeps the container running.
+
+build: Defines the build context and Dockerfile to use.
+
+environment: Sets environment variables.
+
+tty: true and stdin_open: true: Ensures the container remains interactive, useful for debugging.
+
