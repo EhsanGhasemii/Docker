@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Create a backup of the original hosts file
+cp /etc/hosts /etc/hosts.bak
+
+# Append the Github ip address entry to the hosts file
+echo "185.199.108.133 raw.githubusercontent.com" >> /etc/hosts
+
+# Download nvim configuration and plugins{NERD_tree and indentLine}
+wget https://raw.githubusercontent.com/EhsanGhasemii/Linux_tutorial/refs/heads/main/vim/init.vi
+wget https://raw.githubusercontent.com/EhsanGhasemii/Linux_tutorial/refs/heads/main/zsh/zshrc -
+mkdir -p ~/.local/share/nvim/site/pack/plugins/start/
+wget https://www.vim.org/scripts/download_script.php?src_id=23731 -O ~/.local/share/nvim/site/p
+unzip ~/.local/share/nvim/site/pack/plugins/start/NERD_tree.zip -d ~/.local/share/nvim/site/pac
+wget https://www.vim.org/scripts/download_script.php?src_id=22741 -O ~/.local/share/nvim/site/p
+unzip ~/.local/share/nvim/site/pack/plugins/start/indentLine.zip -d ~/.local/share/nvim/site/pa
+
+# Execute the original command
+exec "$@"
+
