@@ -218,3 +218,45 @@ environment: Sets environment variables.
 
 tty: true and stdin_open: true: Ensures the container remains interactive, useful for debugging.
 
+
+## How to restart your Docker container? 
+Yes, there is a way to automatically restart your Docker containers after your computer is turned back on. You can use the `--restart` policy when running your container. Here are the steps:
+
+1. **Run the Container with Restart Policy**:
+   You can specify a restart policy when you start your container using the `docker run` command. For example, to restart the container automatically unless it is explicitly stopped, you can use:
+   ```bash
+   docker run -d --restart unless-stopped my_container_image
+   ```
+   This will ensure that the container restarts automatically when your computer is turned back on.
+
+2. **Check Restart Policies**:
+   You can also check the restart policies of your running containers using the following command:
+   ```bash
+   docker inspect --format='{{.HostConfig.RestartPolicy.Name}}' container_name
+   ```
+   Replace `container_name` with the name of your container.
+
+3. **Update Existing Containers**:
+   If you have already running containers and want to update their restart policies, you can stop the container, update the restart policy, and start it again:
+   ```bash
+   docker stop container_name
+   docker update --restart unless-stopped container_name
+   docker start container_name
+   ```
+
+By setting the restart policy, your Docker containers will automatically start when your computer is turned back on, ensuring they remain up and running.
+
+Does this help with what you were looking for?
+
+
+
+
+
+
+
+
+
+
+
+
+
