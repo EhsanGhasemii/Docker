@@ -65,6 +65,10 @@ How to load an image?
 gzip -dc ~/docker/sad_0.1.1-rpc.tar.gz | docker load
 ```
 
+How to set your main network as wrapper of your conatiner?
+```bash
+sudo docker run --network host ...
+```
 
 
 ## Milad project
