@@ -252,7 +252,10 @@ By setting the restart policy, your Docker containers will automatically start w
 
 Does this help with what you were looking for?
 
-
+## How to make all the containers down? 
+```bash
+docker rm -f $(docker ps -aq)
+```
 
 
 
