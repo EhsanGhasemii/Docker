@@ -1,6 +1,7 @@
 # Use a parent image. I will use torch image as parent
 #FROM ubuntu:latest
 FROM cnstark/pytorch:2.0.1-py3.10.11-cuda11.8.0-ubuntu22.04
+#FROM cnstark/pytorch:2.4.1-py3.10.15-ubuntu22.04
 
 WORKDIR /app
 
