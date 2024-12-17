@@ -29,6 +29,31 @@ COPY download_configurations.sh /usr/local/bin/download_configurations.sh
 RUN chmod +x /usr/local/bin/download_configurations.sh
 ENTRYPOINT ["/usr/local/bin/download_configurations.sh"]
 
+# download and install cmake
+WORKDIR /
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.31.0/cmake-3.31.0.tar.gz
+RUN tar -xvzf cmake-3.31.0.tar.gz
+RUN mv cmake-3.31.0 cmake
+WORKDIR /cmake
+RUN ./bootstrap && make && make install
+
+# download and install grpc
+WORKDIR /
+RUN apt-get update
+RUN apt install -y build-essential autoconf libtool pkg-config
+RUN git clone --recurse-submodules -b v1.66.0 --depth 1 --shallow-submodules https://github.com/grpc/grpc
+WORKDIR /grpc/cmake/build
+RUN cmake -DgRPC_INSTALL=ON \
+    -DgRPC_BUILD_TESTS=OFF \
+    -DCMAKE_INSTALL_PREFIX=$MY_INSTALL_DIR \
+    ../..
+RUN make -j 8
+RUN make install
+
+# main core to run the proto files
+COPY . /app
+
+
 # keep the container running
 CMD ["tail", "-f", "/dev/null"]
 
