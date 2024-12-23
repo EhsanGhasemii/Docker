@@ -69,7 +69,7 @@ RUN export PATH=/usr/local/cuda/bin:$PATH
 RUN export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 RUN echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
 RUN echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
-#RUN source ~/.bashrc
+RUN source ~/.bashrc
 
 # install qmake 
 RUN apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
@@ -82,9 +82,12 @@ RUN apt-get install -y libblas-dev
 RUN apt-get install -y libboost-dev
 RUN apt-get install -y libarmadillo-dev
 
-# update an upgrade ubuntu
-#RUN apt-get update
-#RUN apt-get -y upgrade
+
+# Install necessary packages for showing display
+RUN apt-get update && apt-get install -y \ 
+    libxcb-xinerama0 \
+    xauth 
+ENV QT_QPA_PLATFORM_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt5/plugins
 
 # keep the container running
 CMD ["tail", "-f", "/dev/null"]
