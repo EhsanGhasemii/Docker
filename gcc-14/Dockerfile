@@ -50,6 +50,17 @@ RUN cmake -DgRPC_INSTALL=ON \
 RUN make -j 8
 RUN make install
 
+# download and install opencv
+WORKDIR /
+RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.x.zip
+RUN unzip opencv.zip
+RUN mv opencv-4.x opencv
+WORKDIR /opencv
+RUN cmake -B build
+RUN cmake --build build
+RUN cmake --install build
+RUN ldconfig
+
 # main core to run the proto files
 COPY . /app
 
