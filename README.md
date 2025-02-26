@@ -258,6 +258,15 @@ docker rm -f $(docker ps -aq)
 ```
 
 
+## How to add your user to the docker group? 
+1. Create the Docker group(if it doesn't already exist):
+  ```bash
+     sudo groupadd docker
+  ```
+2. Add your user to the Docker group: 
+  ```bash
+     sudo usermod -aG docker $USER
+  ```
 
 
 
