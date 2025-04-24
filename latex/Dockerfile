@@ -12,7 +12,7 @@ FROM debian:buster-slim
 # Update package lists and install LaTeX packages 
 #RUN apt-get update && \ 
 #  apt-get install --no-install-recommends -y \ 
-#  texlive \ 
+#  texlive-full \ 
 #  latexmk \ 
 #  && rm -rf /var/lib/apt/lists/*
 
