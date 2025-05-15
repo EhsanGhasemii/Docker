@@ -46,6 +46,10 @@ How to run the docker container?
 ```bash
 docker run -d --name ehsan-container ehsan-image
 ```
+How to run the docker container with specefic dns? 
+```
+docker run --dns=8.8.8.8 -d --name ehsan-container ehsan-image
+```
 How to access the container with a bash shell?
 ```bash
 docker exec -it ehsan-container bash
