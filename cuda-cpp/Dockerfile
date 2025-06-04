@@ -69,7 +69,7 @@ RUN export PATH=/usr/local/cuda/bin:$PATH
 RUN export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 RUN echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
 RUN echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
-RUN source ~/.bashrc
+#RUN source ~/.bashrc
 
 # install qmake 
 RUN apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
