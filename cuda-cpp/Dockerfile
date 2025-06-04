@@ -39,17 +39,17 @@ WORKDIR /cmake
 RUN ./bootstrap && make && make install
 
 # download and install grpc
-WORKDIR /
-RUN apt-get update
-RUN apt install -y build-essential autoconf libtool pkg-config
-RUN git clone --recurse-submodules -b v1.66.0 --depth 1 --shallow-submodules https://github.com/grpc/grpc
-WORKDIR /grpc/cmake/build
-RUN cmake -DgRPC_INSTALL=ON \
-    -DgRPC_BUILD_TESTS=OFF \
-    -DCMAKE_INSTALL_PREFIX=$MY_INSTALL_DIR \
-    ../..
-RUN make -j 8
-RUN make install
+#WORKDIR /
+#RUN apt-get update
+#RUN apt install -y build-essential autoconf libtool pkg-config
+#RUN git clone --recurse-submodules -b v1.66.0 --depth 1 --shallow-submodules https://github.com/grpc/grpc
+#WORKDIR /grpc/cmake/build
+#RUN cmake -DgRPC_INSTALL=ON \
+#    -DgRPC_BUILD_TESTS=OFF \
+#    -DCMAKE_INSTALL_PREFIX=$MY_INSTALL_DIR \
+#    ../..
+#RUN make -j 8
+#RUN make install
 
 # main core to run the proto files
 COPY . /app
@@ -73,15 +73,12 @@ RUN source ~/.bashrc
 
 # install qmake 
 RUN apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
-#RUN apt-get install -y qt5-qmake
-#RUN echo 'export PATH=/usr/lib/x86_64-linux-gnu/qt5/bin/:$PATH' >> ~/.bashrc
 
 # install armadillo library
 RUN apt-get install -y liblapack-dev
 RUN apt-get install -y libblas-dev
 RUN apt-get install -y libboost-dev
 RUN apt-get install -y libarmadillo-dev
-
 
 # Install necessary packages for showing display
 RUN apt-get update && apt-get install -y \ 
