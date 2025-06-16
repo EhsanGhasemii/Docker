@@ -273,6 +273,36 @@ docker rm -f $(docker ps -aq)
   ```
 
 
+## How to bypass regional restriction of docker?
+
+You're almost there! However, the command you've written will not correctly create the JSON file due to how shell redirection (`>`) interacts with `sudo`. Also, the registry URL in `insecure-registries` should **not** include the protocol (`https://`), but `registry-mirrors` **should** include the full URL.
+
+Here is the correct and safe way to configure Docker to use a custom mirror like ArvanCloud:
+
+### ✅ Correct Command:
+
+```bash
+sudo tee /etc/docker/daemon.json > /dev/null <<EOF
+{
+  "insecure-registries": ["docker.arvancloud.ir"],
+  "registry-mirrors": ["https://docker.arvancloud.ir"]
+}
+EOF
+```
+
+### Then Restart Docker:
+
+```bash
+sudo systemctl restart docker
+```
+
+### Explanation:
+
+* `tee` is used with `sudo` to properly write to a root-owned file.
+* `insecure-registries` only needs the domain, no `http(s)://`.
+* `registry-mirrors` is for pulling images; it should include the full URL.
+
+After this setup, Docker will try pulling images via ArvanCloud's mirror instead of Docker Hub, helping bypass regional restrictions.
 
 
 
