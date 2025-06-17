@@ -58,18 +58,16 @@ COPY . /app
 WORKDIR /app
 RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
 RUN mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
-#RUN wget https://developer.download.nvidia.com/compute/cuda/12.6.3/local_installers/cuda-repo-ubuntu2204-12-6-local_12.6.3-560.35.05-1_amd64.deb
-COPY cuda-repo-ubuntu2204-12-6-local_12.6.3-560.35.05-1_amd64.deb /app
-RUN dpkg -i cuda-repo-ubuntu2204-12-6-local_12.6.3-560.35.05-1_amd64.deb
-RUN cp /var/cuda-repo-ubuntu2204-12-6-local/cuda-F6A712F7-keyring.gpg /usr/share/keyrings/
-RUN dpkg -i cuda-repo-ubuntu2204-12-6-local_12.6.3-560.35.05-1_amd64.deb
+#RUN wget https://developer.download.nvidia.com/compute/cuda/12.4.0/local_installers/cuda-repo-ubuntu2204-12-4-local_12.4.0-550.54.14-1_amd64.deb
+COPY cuda-repo-ubuntu2204-12-4-local_12.4.0-550.54.14-1_amd64.deb /app
+RUN cp /var/cuda-repo-ubuntu2204-12-4-local/cuda-*-keyring.gpg /usr/share/keyrings/
+RUN dpkg -i cuda-repo-ubuntu2204-12-4-local_12.4.0-550.54.14-1_amd64.deb
 RUN apt-get update
-RUN apt-get -y install cuda-toolkit-12-6
+RUN apt-get -y install cuda-toolkit-12-4
 RUN export PATH=/usr/local/cuda/bin:$PATH
 RUN export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 RUN echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
 RUN echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
-#RUN source ~/.bashrc
 
 # install qmake 
 RUN apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
