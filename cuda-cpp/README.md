@@ -8,8 +8,6 @@ xhost +
 ```
 
 
-
-
 ## To **fully remove all previously installed CUDA Toolkit versions** (and their related packages like `libcublas`, `nvidia-cuda-toolkit`, etc.), follow these steps carefully. This ensures a clean slate before installing a new version.
 
 ---
