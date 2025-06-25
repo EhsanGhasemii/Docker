@@ -56,12 +56,13 @@ COPY . /app
 
 # download and install cuda-toolkits
 WORKDIR /app
-RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
+#RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
+COPY cuda-ubuntu2204.pin /app
 RUN mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
 #RUN wget https://developer.download.nvidia.com/compute/cuda/12.4.0/local_installers/cuda-repo-ubuntu2204-12-4-local_12.4.0-550.54.14-1_amd64.deb
 COPY cuda-repo-ubuntu2204-12-4-local_12.4.0-550.54.14-1_amd64.deb /app
-RUN cp /var/cuda-repo-ubuntu2204-12-4-local/cuda-*-keyring.gpg /usr/share/keyrings/
 RUN dpkg -i cuda-repo-ubuntu2204-12-4-local_12.4.0-550.54.14-1_amd64.deb
+RUN cp /var/cuda-repo-ubuntu2204-12-4-local/cuda-*-keyring.gpg /usr/share/keyrings/
 RUN apt-get update
 RUN apt-get -y install cuda-toolkit-12-4
 RUN export PATH=/usr/local/cuda/bin:$PATH
