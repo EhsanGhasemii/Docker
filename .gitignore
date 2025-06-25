@@ -3,3 +3,6 @@ gcc-14/cmake-3.31.0.tar.gz
 
 # all debian files
 *.deb
+
+# cuda-cpp
+cuda-cpp/cuda-ubuntu2204.pin
