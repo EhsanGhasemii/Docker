@@ -306,6 +306,10 @@ After this setup, Docker will try pulling images via ArvanCloud's mirror instead
 
 
 
+## How to use jupyter notebook inside your docker container? 
+```bash
+jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+```
 
 
 
