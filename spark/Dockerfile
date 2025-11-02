@@ -8,9 +8,6 @@ RUN apt-get update && \
     pip3 install --no-cache-dir pyspark && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Switch back to spark user
-USER spark
-
 # Set Python environment
 ENV PYSPARK_PYTHON=python3
 

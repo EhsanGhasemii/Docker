@@ -16,6 +16,9 @@ RUN apt-get update && \
   latexmk \ 
   && rm -rf /var/lib/apt/lists/*
 
+# 
+RUN apt-get update && apt-get install -y python3-pygments
+
 # download and replace nvim configurations in the docker container
 COPY download_configurations.sh /usr/local/bin/download_configurations.sh
 RUN chmod +x /usr/local/bin/download_configurations.sh

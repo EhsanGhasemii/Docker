@@ -24,6 +24,7 @@ This is a simple English \LaTeX{} test document.
 
 ```bash
 pdflatex test_english.tex
+pdflatex -shell-escape test_english.tex
 ```
 
 After compilation, you will get:
