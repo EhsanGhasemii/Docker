@@ -11,4 +11,8 @@ RUN apt-get update && \
 # Set Python environment
 ENV PYSPARK_PYTHON=python3
 
+# install jupyter notebook
+WORKDIR /
+RUN pip install jupyter notebook
+
 CMD ["tail", "-f", "/dev/null"]
