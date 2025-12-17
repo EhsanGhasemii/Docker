@@ -304,6 +304,127 @@ sudo systemctl restart docker
 
 After this setup, Docker will try pulling images via ArvanCloud's mirror instead of Docker Hub, helping bypass regional restrictions.
 
+Now we have **enough evidence** to be 100% certain what the problem is.
+I’ll be very precise and not guess.
+
+---
+
+## ✅ SOLUTIONS (Choose ONE)
+
+---
+
+## 🟢 Solution 1 (BEST): Use Docker registry mirror
+
+Edit Docker daemon config:
+
+```bash
+sudo nvim /etc/docker/daemon.json
+```
+
+Put this:
+
+```json
+{
+  "registry-mirrors": [
+    "https://docker.arvancloud.ir",
+    "https://registry.docker.ir"
+  ],
+  "dns": ["8.8.8.8", "1.1.1.1"]
+}
+```
+
+Restart Docker:
+
+```bash
+sudo systemctl restart docker
+```
+
+Try again:
+
+```bash
+docker pull gcc:11.4
+```
+
+✅ This works for many users in restricted networks.
+
+---
+
+## 🟢 Solution 2: Use VPN (quick test)
+
+Temporarily connect VPN **on the host**, then:
+
+```bash
+docker pull gcc:11.4
+```
+
+If it works → network blocking confirmed.
+
+---
+
+## 🟢 Solution 3: Pull image elsewhere & transfer (100% reliable)
+
+On a machine with free access:
+
+```bash
+docker pull gcc:11.4
+docker save gcc:11.4 -o gcc_11_4.tar
+```
+
+Copy to server:
+
+```bash
+scp gcc_11_4.tar server:/home/ehsan/
+```
+
+Load on server:
+
+```bash
+docker load -i gcc_11_4.tar
+```
+
+Then build:
+
+```bash
+docker build -t ehsan-cuda .
+```
+
+---
+
+## 🟢 Solution 4: Use NVIDIA base image mirror (CUDA project)
+
+Since this is **cuda-cpp**, you SHOULD NOT use `gcc` anyway.
+
+Use:
+
+```dockerfile
+FROM nvidia/cuda:11.8.0-devel-ubuntu22.04
+```
+
+And pull via mirror:
+
+```bash
+docker pull docker.arvancloud.ir/nvidia/cuda:11.8.0-devel-ubuntu22.04
+```
+
+---
+
+## ❌ Things that will NOT fix it (you already tried)
+
+❌ Editing `/etc/resolv.conf`
+❌ Restarting Docker repeatedly
+❌ Waiting longer
+❌ Changing gcc version
+❌ Changing Dockerfile syntax
+
+---
+
+## 🧾 Final Diagnosis (clear & final)
+
+> **Your server/network blocks Docker Hub registry traffic.**
+> Docker cannot reach `registry-1.docker.io`, so image metadata download fails.
+
+
+
 
 
 ## How to use jupyter notebook inside your docker container? 
