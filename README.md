@@ -435,3 +435,23 @@ jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root
 
 
 
+
+## How to fix your docker container `apt update` and `apt upgrade` if does not work?
+
+```
+cat /etc/os-release
+cat /etc/apt/sources.list
+ls -la /etc/apt/sources.list.d/
+cp -a /etc/apt/sources.list /etc/apt/sources.list.backup
+cat > /etc/apt/sources.list <<'EOF'
+deb http://archive.debian.org/debian bullseye main contrib non-free
+deb http://archive.debian.org/debian-archive/debian-security bullseye-security main contrib non-free
+EOF
+apt-get clean
+rm -rf /var/lib/apt/lists/*
+apt-get -o Acquire::Check-Valid-Until=false update
+apt-get upgrade
+```
+
+
+
